@@ -9,11 +9,11 @@ const ProductDetails = () => {
   const [product, setProduct] = useState([]);
   const params = useParams();
   const [cart, setCart] = useCart();
-
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `/api/v1/product/single-product/${params.slug}`
+        `${backend_url}/api/v1/product/single-product/${params.slug}`
       );
 
       if (data.success) {
@@ -36,7 +36,7 @@ const ProductDetails = () => {
           <div className="">
             <img
               className="h-[10rem] m-2 w-[400px] h-[400px]"
-              src={`/api/v1/product/get-photo/${product._id}`}
+              src={`${backend_url}/api/v1/product/get-photo/${product._id}`}
               alt={product.name}
             />
           </div>

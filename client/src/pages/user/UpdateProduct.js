@@ -19,7 +19,7 @@ const UpdateProduct = () => {
   const [category, setCategory] = useState("");
   const [id, setId] = useState("");
   const params = useParams();
-
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   // function to update product
   const updateProduct = async (e) => {
     e.preventDefault();
@@ -38,7 +38,7 @@ const UpdateProduct = () => {
       console.log(photo);
 
       const { data } = await axios.put(
-        `/api/v1/product/update-product/${id}`,
+        `${backend_url}/api/v1/product/update-product/${id}`,
         products
       );
 
@@ -60,7 +60,7 @@ const UpdateProduct = () => {
       let answer = window.prompt("Are You sure want to delete this product");
       if (!answer) return;
       const { data } = await axios.delete(
-        `/api/v1/product/delete-product/${id}`
+        `${backend_url}/api/v1/product/delete-product/${id}`
       );
       if (data.success) {
         toast.success(data.message);
@@ -79,7 +79,7 @@ const UpdateProduct = () => {
       console.log("err");
       console.log(params.slug);
       const { data } = await axios.get(
-        `/api/v1/product/single-product/${params.slug}`
+        `${backend_url}/api/v1/product/single-product/${params.slug}`
       );
       if (data.success) {
         toast.success(data.message);
@@ -103,7 +103,9 @@ const UpdateProduct = () => {
   // function to get all category
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-all-category");
+      const { data } = await axios.get(
+        `${backend_url}/api/v1/category/get-all-category`
+      );
       if (data.success) {
         setCategories(data.category);
       }
@@ -148,7 +150,7 @@ const UpdateProduct = () => {
                     </h2>
                     <div className="flex justify-center my-10 flex items-center  h-[15rem] ">
                       <img
-                        src={`/api/v1/product/get-photo/${id}`}
+                        src={`${backend_url}/api/v1/product/get-photo/${id}`}
                         alt="Preview-image"
                       ></img>
                     </div>

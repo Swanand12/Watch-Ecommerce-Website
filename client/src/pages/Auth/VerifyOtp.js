@@ -10,12 +10,12 @@ const VerifyOtp = () => {
   const location = useLocation();
   const email = location.state;
   const navigate = useNavigate("");
-
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("/api/v1/auth/verify-otp", {
+      const res = await axios.post(`${backend_url}/api/v1/auth/verify-otp`, {
         email,
         otp,
       });

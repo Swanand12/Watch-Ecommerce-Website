@@ -10,6 +10,7 @@ const UserOrders = () => {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   // eslint-disable-next-line
   const [status, setStatus] = useState([
     "Not Processing",
@@ -28,7 +29,9 @@ const UserOrders = () => {
   const userid = auth?.user?.id;
   const getOrders = async () => {
     try {
-      const { data } = await axios.get(`/api/v1/order/orders/${userid}`);
+      const { data } = await axios.get(
+        `${backend_url}/api/v1/order/orders/${userid}`
+      );
       if (data) {
         setOrders(data?.orders);
 
@@ -115,7 +118,7 @@ const UserOrders = () => {
                     <div className="flex flex-col items-center  ">
                       <img
                         className="h-[10rem] m-2"
-                        src={`/api/v1/product/get-photo/${p._id}`}
+                        src={`${backend_url}/api/v1/product/get-photo/${p._id}`}
                         alt={p.name}
                       />
                       <div className="py-1 flex flex-col  items-center">

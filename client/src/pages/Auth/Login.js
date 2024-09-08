@@ -14,12 +14,13 @@ const Login = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("/api/v1/auth/login", {
+      const res = await axios.post(`${backend_url}/api/v1/auth/login`, {
         email,
         password,
       });

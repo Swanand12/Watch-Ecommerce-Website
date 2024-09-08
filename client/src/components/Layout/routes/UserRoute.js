@@ -10,10 +10,10 @@ const UserRoute = () => {
   const [ok, setOk] = useState(false);
   // eslint-disable-next-line
   const [auth, setAuth] = useAuth();
-
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   useEffect(() => {
     const checkAuth = async () => {
-      const res = await axios.get("/api/v1/auth/user-auth", {
+      const res = await axios.get(`${backend_url}/api/v1/auth/user-auth`, {
         headers: {
           Authorization: auth?.token,
         },

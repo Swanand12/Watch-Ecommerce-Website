@@ -17,6 +17,7 @@ const Cart = () => {
   const [successfullPayment, setSuccessfullPayment] = useState(false);
   // eslint-disable-next-line
   const [auth, setAuth] = useAuth();
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
@@ -52,7 +53,9 @@ const Cart = () => {
 
   const getToken = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/braintree/token");
+      const { data } = await axios.get(
+        `${backend_url}/api/v1/product/braintree/token`
+      );
 
       if (data.response.success) {
         setClientToken(data.response.clientToken);
@@ -72,11 +75,14 @@ const Cart = () => {
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
-      const { data } = await axios.post("/api/v1/product/braintree/payments", {
-        id,
-        cart,
-        nonce,
-      });
+      const { data } = await axios.post(
+        `${backend_url}/api/v1/product/braintree/payments`,
+        {
+          id,
+          cart,
+          nonce,
+        }
+      );
       if (data.success) {
         setLoading(false);
         setCart([]);
@@ -134,7 +140,7 @@ const Cart = () => {
                       <td className="items-center flex justify-center w-1/5">
                         <img
                           className=" w-[4rem] h-[4rem]"
-                          src={`/api/v1/product/get-photo/${p._id}`}
+                          src={`${backend_url}/api/v1/product/get-photo/${p._id}`}
                           alt={p.name}
                         />
                       </td>

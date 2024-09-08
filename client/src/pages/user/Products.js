@@ -9,10 +9,13 @@ import { MdDelete } from "react-icons/md";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   // function to get all products
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/get-products");
+      const { data } = await axios.get(
+        `${backend_url}/api/v1/product/get-products`
+      );
 
       if (data.success) {
         toast.success(data.message);
@@ -34,7 +37,7 @@ const Products = () => {
       let answer = window.prompt("Are You sure want to delete this product");
       if (!answer) return;
       const { data } = await axios.delete(
-        `/api/v1/product/delete-product/${id}`
+        `${backend_url}/api/v1/product/delete-product/${id}`
       );
       if (data.success) {
         toast.success(data.message);
@@ -60,7 +63,7 @@ const Products = () => {
                 <div className="flex flex-col items-center  ">
                   <img
                     className="h-[10rem] m-2"
-                    src={`/api/v1/product/get-photo/${p._id}`}
+                    src={`${backend_url}/api/v1/product/get-photo/${p._id}`}
                     alt={p.name}
                   />
                   <div className="py-1 flex flex-col  items-center">

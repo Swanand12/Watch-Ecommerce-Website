@@ -12,12 +12,12 @@ const ManageCategory = () => {
   const [updateName, setUpdateName] = useState("");
   const [visible, setVisible] = useState(false);
   const [id, setId] = useState("");
-
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   // function to handle delete category
   const handleDelete = async (id) => {
     try {
       const { data } = await axios.delete(
-        `/api/v1/category/delete-category/${id}`
+        `${backend_url}/api/v1/category/delete-category/${id}`
       );
       if (data.success) {
         toast.success(data.message);
@@ -36,7 +36,7 @@ const ManageCategory = () => {
 
     try {
       const { data } = await axios.put(
-        `/api/v1/category/update-category/${id}`,
+        `${backend_url}/api/v1/category/update-category/${id}`,
         { name: updateName }
       );
 
@@ -57,9 +57,12 @@ const ManageCategory = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/v1/category/create-category", {
-        name,
-      });
+      const { data } = await axios.post(
+        `${backend_url}/api/v1/category/create-category`,
+        {
+          name,
+        }
+      );
 
       if (data.success) {
         toast.success(data.message);
@@ -75,7 +78,9 @@ const ManageCategory = () => {
   // function to handle get category
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-all-category");
+      const { data } = await axios.get(
+        `${backend_url}/api/v1/category/get-all-category`
+      );
       if (data.success) {
         setCategories(data.category);
       }
@@ -86,6 +91,7 @@ const ManageCategory = () => {
   // getting all categories on initial render
   useEffect(() => {
     getAllCategories();
+    // eslint-disable-next-line
   }, []);
   return (
     <>

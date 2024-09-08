@@ -18,13 +18,15 @@ const AdminOrders = () => {
     "En Route",
     "Delivered",
   ]);
-
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   // eslint-disable-next-line
   const [auth, setAuth] = useAuth();
 
   const getAllOrders = async () => {
     try {
-      const { data } = await axios.get("/api/v1/order/all-orders");
+      const { data } = await axios.get(
+        `${backend_url}/api/v1/order/all-orders`
+      );
       if (data) {
         setOrders(data?.orders);
 
@@ -43,7 +45,7 @@ const AdminOrders = () => {
   const handleChange = async (orderId, value) => {
     try {
       const { data } = await axios.put(
-        `/api/v1/order/update-status/${orderId}`,
+        `${backend_url}/api/v1/order/update-status/${orderId}`,
         { status: value }
       );
       if (data.success) {

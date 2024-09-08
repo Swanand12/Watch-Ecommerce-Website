@@ -19,6 +19,7 @@ const UserProfile = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   const [edit, setEdit] = useState([false, false, false, false, false]);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const UserProfile = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.put("/api/v1/auth/profile", {
+      const { data } = await axios.put(`${backend_url}/api/v1/auth/profile`, {
         name,
         email,
         password,

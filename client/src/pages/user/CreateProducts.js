@@ -17,7 +17,7 @@ const CreateProducts = () => {
   const [photo, setPhoto] = useState("");
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
-
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   // function to create product
   const createProduct = async (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ const CreateProducts = () => {
       products.append("photo", photo);
 
       const { data } = await axios.post(
-        "/api/v1/product/create-product",
+        `${backend_url}/api/v1/product/create-product`,
         products
       );
 
@@ -50,7 +50,9 @@ const CreateProducts = () => {
   // function to get all categories
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-all-category");
+      const { data } = await axios.get(
+        `${backend_url}/api/v1/category/get-all-category`
+      );
       if (data.success) {
         setCategories(data.category);
       }
@@ -62,6 +64,7 @@ const CreateProducts = () => {
   // getting all categories on initial render
   useEffect(() => {
     getAllCategories();
+    // eslint-disable-next-line
   }, []);
   return (
     <>

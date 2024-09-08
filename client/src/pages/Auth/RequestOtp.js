@@ -8,11 +8,13 @@ import { Link, useNavigate } from "react-router-dom";
 const RequestOtp = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/v1/auth/request-otp", { email });
+      const res = await axios.post(`${backend_url}/api/v1/auth/request-otp`, {
+        email,
+      });
 
       if (res.data.success) {
         toast.success(res.data.message);

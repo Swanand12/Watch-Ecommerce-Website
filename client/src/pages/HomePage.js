@@ -27,7 +27,7 @@ const HomePage = () => {
   const [cart, setCart] = useCart();
   const [showFilter, setShowFilter] = useState(false);
   const navigate = useNavigate();
-
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   // function to handle navbar shadow on scrolling products
   const handleNavbarScroll = (scrollTop) => {
     const navbar = document.getElementsByClassName("navbar")[0];
@@ -43,7 +43,9 @@ const HomePage = () => {
   // function to get all categories
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get("/api/v1/category/get-all-category");
+      const { data } = await axios.get(
+        `${backend_url}/api/v1/category/get-all-category`
+      );
       if (data.success) {
         setCategories(data.category);
       }
@@ -59,7 +61,9 @@ const HomePage = () => {
   // function to get all products
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/get-products");
+      const { data } = await axios.get(
+        `${backend_url}/api/v1/product/get-products`
+      );
 
       if (data.success) {
         toast.success(data.message);
@@ -81,7 +85,7 @@ const HomePage = () => {
     e.preventDefault();
     try {
       const { data } = await axios.get(
-        `/api/v1/product/search/${values.keyword}`
+        `${backend_url}/api/v1/product/search/${values.keyword}`
       );
 
       if (data.success) {
@@ -106,11 +110,14 @@ const HomePage = () => {
 
   const filterProducts = async () => {
     try {
-      const { data } = await axios.post("/api/v1/product/product-filter", {
-        checked,
-        radio,
-        page: 1,
-      });
+      const { data } = await axios.post(
+        `${backend_url}/api/v1/product/product-filter`,
+        {
+          checked,
+          radio,
+          page: 1,
+        }
+      );
       if (data.success) {
         toast.success(data.message);
         setPage(1);
@@ -132,10 +139,13 @@ const HomePage = () => {
 
   const getTotal = async () => {
     try {
-      const { data } = await axios.post("/api/v1/product/product-count", {
-        checked,
-        radio,
-      });
+      const { data } = await axios.post(
+        `${backend_url}/api/v1/product/product-count`,
+        {
+          checked,
+          radio,
+        }
+      );
       if (data?.success) {
         setTotal(data?.total);
       }
@@ -152,11 +162,14 @@ const HomePage = () => {
   const productList = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post(`/api/v1/product/product-list`, {
-        checked,
-        radio,
-        page: page + 1,
-      });
+      const { data } = await axios.post(
+        `${backend_url}/api/v1/product/product-list`,
+        {
+          checked,
+          radio,
+          page: page + 1,
+        }
+      );
       setLoading(false);
       if (data.success) {
         setProducts([...products, ...data.products]);
@@ -308,7 +321,7 @@ const HomePage = () => {
                   <div className="flex flex-col items-center  ">
                     <img
                       className="h-[10rem] m-2"
-                      src={`/api/v1/product/get-photo/${p._id}`}
+                      src={`${backend_url}/api/v1/product/get-photo/${p._id}`}
                       alt={p.name}
                     />
                     <div className="py-1 flex flex-col  items-center">
