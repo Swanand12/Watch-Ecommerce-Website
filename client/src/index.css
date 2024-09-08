@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* font-family: "Playfair Display", serif;
+font-family: "Poppins", sans-serif; */
+
+/* active navbar */
+.active {
+  font-weight: bold;
+}
+
+/* Product Card */
+
+.card {
+  min-height: 80vh;
+}
