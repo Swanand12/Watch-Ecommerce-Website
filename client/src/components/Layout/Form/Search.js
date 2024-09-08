@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { BiLeftArrowCircle } from "react-icons/bi";
 
 const Search = () => {
+  const backend_url = process.env.REACT_APP_BACKEND_URL;
   // eslint-disable-next-line
   const [values, setValues] = useSearch();
   return (
@@ -29,7 +30,7 @@ const Search = () => {
                   <div className="flex flex-col items-center  ">
                     <img
                       className="h-[10rem] m-2"
-                      src={`/api/v1/product/get-photo/${p._id}`}
+                      src={`${backend_url}/api/v1/product/get-photo/${p._id}`}
                       alt={p.name}
                     />
                     <div className="py-3 flex flex-col  items-center">
